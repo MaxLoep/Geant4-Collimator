@@ -133,6 +133,7 @@ RunAction::RunAction(DetectorConstruction* det, PrimaryGeneratorAction* prim)
   analysisManager->CreateNtupleDColumn("N_Ekin");    // column id = 0
   analysisManager->CreateNtupleDColumn("N_Xpos");    // column id = 1
   analysisManager->CreateNtupleDColumn("N_Ypos");    // column id = 2
+  analysisManager->CreateNtupleDColumn("N_time");    // column id = 3
   analysisManager->FinishNtuple();
 
   // Create ntuple for Gamma Sensitive Detector SD1 - ID 2
@@ -140,6 +141,7 @@ RunAction::RunAction(DetectorConstruction* det, PrimaryGeneratorAction* prim)
   analysisManager->CreateNtupleDColumn("g_Ekin");    // column id = 0
   analysisManager->CreateNtupleDColumn("g_Xpos");    // column id = 1
   analysisManager->CreateNtupleDColumn("g_Ypos");    // column id = 2
+  analysisManager->CreateNtupleDColumn("g_time");    // column id = 3
   analysisManager->FinishNtuple();
 
     // Create ntuple for Neutron Sensitive Detector SD2 - ID 3
@@ -147,6 +149,7 @@ RunAction::RunAction(DetectorConstruction* det, PrimaryGeneratorAction* prim)
   analysisManager->CreateNtupleDColumn("N_Ekin");    // column id = 0
   analysisManager->CreateNtupleDColumn("N_Xpos");    // column id = 1
   analysisManager->CreateNtupleDColumn("N_Ypos");    // column id = 2
+  analysisManager->CreateNtupleDColumn("N_time");    // column id = 3
   analysisManager->FinishNtuple();
 
   // Create ntuple for Gamma Sensitive Detector SD2 - ID 4
@@ -154,6 +157,7 @@ RunAction::RunAction(DetectorConstruction* det, PrimaryGeneratorAction* prim)
   analysisManager->CreateNtupleDColumn("g_Ekin");    // column id = 0
   analysisManager->CreateNtupleDColumn("g_Xpos");    // column id = 1
   analysisManager->CreateNtupleDColumn("g_Ypos");    // column id = 2
+  analysisManager->CreateNtupleDColumn("g_time");    // column id = 3
   analysisManager->FinishNtuple();
 
   // // Create ntuple for Sensitive Detector SD2 - ID 2

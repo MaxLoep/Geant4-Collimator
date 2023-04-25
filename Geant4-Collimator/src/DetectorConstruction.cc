@@ -210,30 +210,58 @@ G4VPhysicalVolume* DetectorConstruction::ConstructVolumes()
   BoxRotation->rotateY(e);      // parameter e is the rotation of the system
   BoxRotation->rotateZ(0*deg);
 
-  G4Box* sBox =    
-    new G4Box("sBox",                        //its name
+  G4Box* sFullRotationBox =    
+    new G4Box("sFullRotationBox",                        //its name
         2.*m /2, 2.*m /2, 224.1*cm);                   //its size: half x, half y, half z - x and y just big and z long enough to fit everything
-      
-  G4LogicalVolume* lBox =                         
-    new G4LogicalVolume(sBox,                //its solid
-                        Vacuum,           //its material
-                        "Box");              //its name
+
+  G4Box* sHalfRotationBox =    
+    new G4Box("sHalfRotationBox",               //its name
+        2.01*m /2, 2.01*m /2, 224.1*cm/2);         //its size: half x, half y, half z  
+
+  // G4LogicalVolume* lBox =                         
+  //   new G4LogicalVolume(sBox,                //its solid
+  //                       Vacuum,           //its material
+  //                       "Box");              //its name
   
-  //G4VPhysicalVolume* physBox=              //you can declare a varibale for placement but it will create a warning if unused   
-    new G4PVPlacement(BoxRotation,           //rotation
-              G4ThreeVector(0,0,0),          //position - placed at origin
-              lBox,                          //its logical volume
-              "Box",                         //its name
-              logicWorld,                    //its mother  volume
-              false,                         //boolean operation?
-              0,                             //copy number
-              true);                         //overlaps checking?
+  // //G4VPhysicalVolume* physBox=              //you can declare a varibale for placement but it will create a warning if unused   
+  //   new G4PVPlacement(BoxRotation,           //rotation
+  //             G4ThreeVector(0,0,0),          //position - placed at origin
+  //             lBox,                          //its logical volume
+  //             "Box",                         //its name
+  //             logicWorld,                    //its mother  volume
+  //             false,                         //boolean operation?
+  //             0,                             //copy number
+  //             true);                         //overlaps checking?
+
+  // 
+  // Subtract HalfRotationBox from RotationBox
+  // 
+  G4SubtractionSolid* sRotationBox =                 // subtract air-cylinder from Copper boxes
+    new G4SubtractionSolid("Rotation Box",     //its name
+                  sFullRotationBox,                 //Solid A
+                  sHalfRotationBox,                 //Solid B
+                  0,                               //Rotation of B relative to A
+                  G4ThreeVector(0,0,-224.11*cm/2));           //Translation of B relative to A - minus Half length of SmallCuBox + Half Length of SmallCuCylinder
+
+  G4LogicalVolume* lRotationBox =                         
+    new G4LogicalVolume(sRotationBox,                //its solid
+                        Vacuum,                 //its material
+                        "logic Rotation Box");       //its name
+
+  new G4PVPlacement(BoxRotation,                             //no rotation
+              G4ThreeVector(0,0,0),           //at position - origin of Collimator is the original origin of SmallCuBox
+              lRotationBox,                          //its logical volume
+              "Rotation Box",                        //its name
+              logicWorld,                                //its mother  volume
+              true,                                //boolean operation?
+              0,                                   //copy number
+              true);                               //overlaps checking?
 
   //Make (in-)visible and give it a color
-  //lBox->SetVisAttributes (G4VisAttributes::GetInvisible());
-  auto lBoxVisAtt = new G4VisAttributes(G4Color(1, 1, 1, 0.1)); //(r, g, b , transparency)
-  lBoxVisAtt->SetVisibility(true);
-  lBox->SetVisAttributes(lBoxVisAtt);
+  //lRotationBox->SetVisAttributes (G4VisAttributes::GetInvisible());
+  auto lRotationBoxVisAtt = new G4VisAttributes(G4Color(1, 1, 1, 0.1)); //(r, g, b , transparency)
+  lRotationBoxVisAtt->SetVisibility(true);
+  lRotationBox->SetVisAttributes(lRotationBoxVisAtt);
 
 
 
@@ -272,7 +300,7 @@ G4VPhysicalVolume* DetectorConstruction::ConstructVolumes()
               G4ThreeVector(0,0,62.*cm),           //at position - origin of Collimator is the original origin of SmallCuBox
               lShieldBox,                          //its logical volume
               "Shield Box",                        //its name
-              lBox,                                //its mother  volume
+              lRotationBox,                                //its mother  volume
               true,                                //boolean operation?
               0,                                   //copy number
               true);                               //overlaps checking?
@@ -325,7 +353,7 @@ G4VPhysicalVolume* DetectorConstruction::ConstructVolumes()
               G4ThreeVector(0,0,33.*cm),      //at position - origin of Collimator is the original origin of SmallCuBox
               lCuColli,                       //its logical volume
               "Copper Collimator",            //its name
-              lBox,                     //its mother  volume
+              lRotationBox,                     //its mother  volume
               true,                           //boolean operation?
               0,                              //copy number
               true);                          //overlaps checking?
@@ -441,7 +469,7 @@ G4VPhysicalVolume* DetectorConstruction::ConstructVolumes()
               G4ThreeVector(0,0,TargetLen/2), //position
               lC_Target,                      //logical volume
               "C_Target",                     //name
-              lBox,                           //mother  volume
+              lRotationBox,                           //mother  volume
               false,                          //boolean operation?
               0,                              //copy number
               true);                          //overlaps checking?
@@ -468,7 +496,7 @@ G4VPhysicalVolume* DetectorConstruction::ConstructVolumes()
               G4ThreeVector(0,0,124.05*cm),     //position
               lSD1,                          //its logical volume
               "SD1",                         //its name
-              lBox,                    //its mother  volume
+              lRotationBox,                    //its mother  volume
               false,                         //boolean operation?
               0,                             //copy number
               true);                         //overlaps checking?
@@ -494,7 +522,7 @@ G4VPhysicalVolume* DetectorConstruction::ConstructVolumes()
               G4ThreeVector(0,0,224.05*cm),     //position
               lSD2,                          //its logical volume
               "SD2",                         //its name
-              lBox,                    //its mother  volume
+              lRotationBox,                    //its mother  volume
               false,                         //boolean operation?
               0,                             //copy number
               true);                         //overlaps checking?

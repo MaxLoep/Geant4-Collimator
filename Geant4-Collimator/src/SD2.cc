@@ -59,12 +59,14 @@ G4bool SD2::ProcessHits(G4Step* step, G4TouchableHistory* /*history*/)
     if(particle == G4Neutron::Neutron())  analysisManager->FillNtupleDColumn(3, 0, Ekin/MeV);
     if(particle == G4Neutron::Neutron())  analysisManager->FillNtupleDColumn(3, 1, localPosition.x()/cm);
     if(particle == G4Neutron::Neutron())  analysisManager->FillNtupleDColumn(3, 2, localPosition.y()/cm);
+    if(particle == G4Neutron::Neutron())  analysisManager->FillNtupleDColumn(3, 3, time/ns);
     if(particle == G4Neutron::Neutron())  analysisManager->AddNtupleRow(3);
 
     // Store gamma hit in the ntuple
     if(particle == G4Gamma::Gamma())  analysisManager->FillNtupleDColumn(4, 0, Ekin/MeV);
     if(particle == G4Gamma::Gamma())  analysisManager->FillNtupleDColumn(4, 1, localPosition.x()/cm);
     if(particle == G4Gamma::Gamma())  analysisManager->FillNtupleDColumn(4, 2, localPosition.y()/cm);
+    if(particle == G4Gamma::Gamma())  analysisManager->FillNtupleDColumn(4, 3, time/ns);
     if(particle == G4Gamma::Gamma())  analysisManager->AddNtupleRow(4);
 
     // // Store hit in histogram 
