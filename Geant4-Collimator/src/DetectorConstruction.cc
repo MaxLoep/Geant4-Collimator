@@ -69,6 +69,7 @@ DetectorConstruction::DetectorConstruction()
   c = 2.*cm;      //inner diameter (choke) of the colli
   d = 4.*cm;      //Exit_Diameter of the colli
   e = 0.*degree;  //rotation of the collimator
+  f = 0.*cm;      // position of the target
  
   TargetDia = 40.*mm;
   TargetLen = 4.*mm;
@@ -466,7 +467,7 @@ G4VPhysicalVolume* DetectorConstruction::ConstructVolumes()
                         "C_Target");           //name
 
   new G4PVPlacement(0,                        //no rotation
-              G4ThreeVector(0,0,TargetLen/2), //position
+              G4ThreeVector(0,0,TargetLen/2 + f), //position
               lC_Target,                      //logical volume
               "C_Target",                     //name
               lRotationBox,                           //mother  volume
@@ -726,6 +727,13 @@ void DetectorConstruction::change_e(G4double value)
   G4cout  << "\n e is now " << G4BestUnit(e,"Angle") << G4endl;
 }
 
+// Change f
+void DetectorConstruction::change_f(G4double value)
+{
+  f = value;
+  G4RunManager::GetRunManager()->ReinitializeGeometry();
+  G4cout  << "\n f is now " << G4BestUnit(f,"Length") << G4endl;
+}
 
 //
 //Assign Detectors and Scorers to Volume

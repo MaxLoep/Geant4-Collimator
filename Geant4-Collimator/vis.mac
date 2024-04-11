@@ -102,6 +102,7 @@
 
 
 #Commands to use with the General Particle Source (GPS)
+/gps/particle deuteron     #beam particle
 /gps/particle neutron     #beam particle
 /gps/position 0. 0 -10 cm      #GPS position
 /gps/direction 0 0 1     #oriented along the Z axis

@@ -22,7 +22,7 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
  fDetector(Det), fTestemDir(nullptr), fDetDir(nullptr), 
  fOutFoldCmd(nullptr),
  fMaterCmd(nullptr),
- fchange_aCmd(nullptr), fchange_bCmd(nullptr), fchange_cCmd(nullptr), fchange_dCmd(nullptr), fchange_eCmd(nullptr)
+ fchange_aCmd(nullptr), fchange_bCmd(nullptr), fchange_cCmd(nullptr), fchange_dCmd(nullptr), fchange_eCmd(nullptr), fchange_fCmd(nullptr)
 {
   //Create a directory for your custom commands
   fTestemDir = new G4UIdirectory("/custom/");
@@ -89,6 +89,14 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
   fchange_eCmd->SetRange("e>=0.");
   fchange_eCmd->SetUnitCategory("Angle");
   fchange_eCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
+
+  // Change f
+  fchange_fCmd = new G4UIcmdWithADoubleAndUnit("/custom/geo/change_f",this);
+  fchange_fCmd->SetGuidance("Change the position of the target (default 0cm)");
+  fchange_fCmd->SetParameterName("f",false);
+  fchange_fCmd->SetRange("f>=0.");
+  fchange_fCmd->SetUnitCategory("Length");
+  fchange_fCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
 }
 
 
@@ -109,6 +117,7 @@ DetectorMessenger::~DetectorMessenger()
   delete fchange_cCmd;
   delete fchange_dCmd;
   delete fchange_eCmd;
+  delete fchange_fCmd;
 }
 
 void DetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
@@ -135,5 +144,8 @@ void DetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
    { fDetector->change_d(fchange_dCmd->GetNewDoubleValue(newValue));} 
 
   if( command == fchange_eCmd )
-   { fDetector->change_e(fchange_eCmd->GetNewDoubleValue(newValue));} 
+   { fDetector->change_e(fchange_eCmd->GetNewDoubleValue(newValue));}
+
+  if( command == fchange_fCmd )
+   { fDetector->change_f(fchange_fCmd->GetNewDoubleValue(newValue));}
 }

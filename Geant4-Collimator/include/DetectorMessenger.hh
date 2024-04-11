@@ -36,6 +36,7 @@ class DetectorMessenger: public G4UImessenger
     G4UIcmdWithADoubleAndUnit* fchange_cCmd;
     G4UIcmdWithADoubleAndUnit* fchange_dCmd;
     G4UIcmdWithADoubleAndUnit* fchange_eCmd; 
+    G4UIcmdWithADoubleAndUnit* fchange_fCmd;
 };
 
 
