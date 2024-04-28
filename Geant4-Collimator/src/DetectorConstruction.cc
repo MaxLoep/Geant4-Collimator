@@ -65,9 +65,9 @@ DetectorConstruction::DetectorConstruction()
 
   // set dummy variables
   a = 20.*cm;     //thickness of shielding
-  b = 4.*cm;      //Entrance_Diameter of the colli
-  c = 2.*cm;      //inner diameter (choke) of the colli
-  d = 4.*cm;      //Exit_Diameter of the colli
+  b = 4.*cm;      //Entrance_Diameter of the tungsten colli; MAX 6.14cm
+  c = 2.*cm;      //inner diameter (choke) of the tungsten colli; MAX 6.14cm
+  d = 4.*cm;      //Exit_Diameter of the tungsten colli; MAX 6.4cm
   e = 0.*degree;  //rotation of the collimator
   f = 0.*cm;      // position of the target
  

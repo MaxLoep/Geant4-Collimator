@@ -94,7 +94,7 @@ DetectorMessenger::DetectorMessenger(DetectorConstruction * Det)
   fchange_fCmd = new G4UIcmdWithADoubleAndUnit("/custom/geo/change_f",this);
   fchange_fCmd->SetGuidance("Change the position of the target (default 0cm)");
   fchange_fCmd->SetParameterName("f",false);
-  fchange_fCmd->SetRange("f>=0.");
+  fchange_fCmd->SetRange("0. <= f <= 3.76");  //Distance to Inlet is 4cm, target is 0.24cm thick = 3.76cm of space
   fchange_fCmd->SetUnitCategory("Length");
   fchange_fCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
 }
