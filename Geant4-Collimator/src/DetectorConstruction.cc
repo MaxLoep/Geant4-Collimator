@@ -72,7 +72,7 @@ DetectorConstruction::DetectorConstruction()
   f = 0.*cm;      // position of the target
  
   TargetDia = 40.*mm;
-  TargetLen = 4.*mm;
+  TargetLen = 2.4*mm; //Paper was 4.0mm but this should be enough to stop a beam of 28 MeV Deuterons
   
 
 
