@@ -134,9 +134,9 @@ int main(int argc,char** argv) {
 
   // G4VModularPhysicsList* physicsList = new QGSP_BIC;
   // G4VModularPhysicsList* physicsList = new QGSP_BIC_HP;
-  // G4VModularPhysicsList* physicsList = new QGSP_BIC_AllHP;
+  G4VModularPhysicsList* physicsList = new QGSP_BIC_AllHP;
   //G4VModularPhysicsList* physicsList = new QGSP_INCLXX;
-  G4VModularPhysicsList* physicsList = new QGSP_INCLXX_HP;
+  // G4VModularPhysicsList* physicsList = new QGSP_INCLXX_HP;
   // G4VModularPhysicsList* physicsList = new QGSP_BERT;
   // G4VModularPhysicsList* physicsList = new QGSP_BERT_HP;
   // G4VModularPhysicsList* physicsList = new QGSP_FTFP_BERT;
